@@ -1,0 +1,14 @@
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Seviyeler
+      </nb-card-header>
+    
+      <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+        <ng2-smart-table [source]="source" [settings]="settings"  (createConfirm)="onCreateConfirm($event)"  (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+    
+</div>
+

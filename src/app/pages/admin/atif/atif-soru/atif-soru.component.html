@@ -1,0 +1,31 @@
+
+<div class="row">
+  <div class="col-md-7">
+    <nb-card>
+      <nb-card-header>
+        Sorular
+      </nb-card-header>
+    
+      <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+        <ng2-smart-table [source]="source" [settings]="settings"  (createConfirm)="onCreateConfirm($event)"  (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+    
+</div>
+
+<div class="col-md-4" id="sagdakayan" style="position: fixed; right: 10px; z-index: 1;">
+  <nb-card>
+    <nb-card-header>
+      Görüntü
+    </nb-card-header>
+  
+    <nb-card-body style="text-align:center">
+        <video-player  ></video-player>
+    </nb-card-body>
+  </nb-card>
+  
+</div>
+
+
+</div>

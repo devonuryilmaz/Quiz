@@ -1,0 +1,49 @@
+<style>
+  img:hover {
+    transform: scale(1.15)
+  }
+
+  .iconGlobe {
+    background: url(http://iconza.com/download/47/16x16/2a15d9/globe.png) no-repeat;
+    width: 16px;
+    height: 16px;
+    border: none;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+  }
+
+  .notification-count {
+    position: absolute;
+    margin-left: 74px;
+    margin-top: -10px;
+    background-color: #FF0000;
+    color: #fff;
+    padding: 2px;
+    font-family: tahoma, arial, 'sans-serif';
+    font-size: 9px;
+    font-weight: bold;
+  }
+</style>
+<div class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
+  <div class="logo-containter">
+    <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
+    <div class="logo"><img style="width:95%;" src="../../../../assets/images/deneme2.png"></div>
+  </div>
+
+</div>
+
+<div class="header-container">
+
+  <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+
+    <nb-action *nbIsGranted="['view', 'user']">
+      <nb-user [nbContextMenu]="userMenu" [name]="userName" #user [hidden]="userVisible" (click)="deneme()"></nb-user>
+    </nb-action>
+    <nb-action (click)="messageClick()" class="control-item" icon="nb-email"></nb-action>
+
+    <nb-action><a *ngIf="msgCount > 0" class="iconGlobe"><span class="notification-count">{{msgCount}}</span></a>
+    </nb-action>
+
+  </nb-actions>
+</div>

@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-4" [ngClass]="{'col-md-12':!user}">
+    <button nbButton hero size="large" fullWidth status="danger" (click)="turnToOturum()">EGZERSİZLERİ GÖSTER</button>
+  </div>
+
+  <div class="col-md-4">
+    <button nbButton hero size="large" *ngIf="user" fullWidth status="info" (click)="turnToKategori()">KATEGORİLERİ
+      GÖSTER</button>
+  </div>
+
+  <div class="col-md-4">
+    <button nbButton hero size="large" *ngIf="user" fullWidth status="success" (click)="openCustom(dialog)">KATEGORİ
+      MESAJI GÜNCELLE</button>
+  </div>
+
+  <div class="col-md-12" style="margin-top: 1rem;">
+    <nb-card>
+      <div class="card-header" style="color:black; text-transform:uppercase; ">
+        <h5 style="color:black;">
+          {{headerSrc?.kategoriHeaderMessage}}
+        </h5>
+      </div>
+      <div class="card-body" style="text-align: center" [nbSpinner]="loading" nbSpinnerStatus="info"
+        nbSpinnerMessage="Tanıtım Videosu Yükleniyor...">
+        <video #videoPlayer style="margin:auto;width: 80%;" class="video-stream" controls>
+          <source [src]="headerSrc?.src">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card style='width:45rem;'>
+    <nb-card-header>Açıklama Güncelle</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="header" (ngSubmit)="onSubmit(dialog)">
+        <label>Açıklama:</label>
+        <textarea nbInput fullWidth shape="round" formControlName="message" class="mt-3 form-control"
+          style="height:10rem;" placeholder="Açıklama"></textarea>
+        <label>Video:</label><br>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile" accept="video/*" (change)="degisti($event)"
+            #file>
+          <label class="custom-file-label" for="customFile">Dosya Seçiniz</label>
+        </div>
+        <button nbButton status="info" style="float:right" class="mt-3">Güncelle</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

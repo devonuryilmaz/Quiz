@@ -1,0 +1,16 @@
+<div class="col-md-12">
+  <nb-card>
+    <nb-card-header>
+      Oturumlar
+      <div style="float: right">
+        <button nbButton status="success" (click)="goEkle()">Ekle</button>
+      </div>
+    </nb-card-header>
+    <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+      <ng2-smart-table [source]="source" [settings]="settings" (custom)="onCustom($event)">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+  
+</div>
+

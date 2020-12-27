@@ -1,0 +1,151 @@
+<div class="col-md-12 row">
+<nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+<div  *ngIf="showKategori">
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let kategori of kategoriler">
+      <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+        <div class="card-header" style="color:black; text-transform:uppercase; ">
+          <h5 style="color:black;">
+            {{kategori.kategoriAdi}}
+
+          </h5>
+        </div>
+
+        <div class="card-footer">
+
+          <button nbButton (click)="getUserRapor(kategori.kategoriID,false)" status="success">Sonucu Göster</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+          <div class="card-header" style="color:black; text-transform:uppercase; ">
+            <h5 style="color:black;">
+             Gaze Cast
+  
+            </h5>
+          </div>
+  
+          <div class="card-footer">
+  
+              <button nbButton  (click)="getUserRapor(2,true)" status="success">Sonucu Göster</button>
+  
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+          <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+            <div class="card-header" style="color:black; text-transform:uppercase; ">
+              <h5 style="color:black;">
+               Face to Fact
+    
+              </h5>
+            </div>
+    
+            <div class="card-footer">
+    
+                <button nbButton  (click)="getUserRapor(5,true)" status="success">Sonucu Göster</button>
+    
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+              <div class="card-header" style="color:black; text-transform:uppercase; ">
+                <h5 style="color:black;">
+                 Atıf
+      
+                </h5>
+              </div>
+      
+              <div class="card-footer">
+      
+                  <button nbButton  (click)="getUserAtifRapor()" status="success">Sonucu Göster</button>
+      
+              </div>
+            </div>
+          </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="showUserRapor">
+  <div class="container">
+      <button type="button" (click)="showUserRapor=false; showKategori=true;" style="float:right" nbButton >Geri</button>
+    <div class="row">
+      <div class="col-md-3" *ngFor="let user of userRapor">
+        <nb-card status="success">
+          <nb-card-header>
+            {{user.seviyeAdi}}
+          </nb-card-header>
+          <nb-card-body>
+            <div *ngIf="user.isTamamlandi">
+              <h5>Doğru Sayısı:{{user.dogruSayisi}}</h5>
+              <h5>Yanlış Sayısı:{{user.yanlisSayisi}}</h5>
+            </div>
+            <div *ngIf="!user.isTamamlandi">
+              <h5>Test henüz tamamlanmamıştır.</h5>
+            </div>
+
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showUserAtifRapor">
+      <div class="container">
+          <button type="button" (click)="showUserAtifRapor=false; showKategori=true;" style="float:right" nbButton >Geri</button>
+      <div class="row">
+        <div class="col-md-3" *ngFor="let user of userAtifRapor">
+          <nb-card status="success">
+            <nb-card-header>
+              {{user.seviyeAdi}}
+            </nb-card-header>
+            <nb-card-body>
+              <div *ngIf="user.isTamamlandi" style="cursor:pointer;"(click)="getAtifCevap(user)">
+               
+                <h5>Cevapları Görmek için tıklayın</h5>
+              </div>
+              <div *ngIf="!user.isTamamlandi">
+                <h5>Test henüz tamamlanmamıştır.</h5>
+              </div>
+  
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="showUserAtifCevap">
+      <div class="accordions-container row">
+          <div class="accordion-container col-md-12 col-lg-6 col-xxxl-6">   
+            <nb-accordion status="success" *ngFor="let atif of atifCevap">
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  <h3>Soru:</h3>
+                  <h4>{{atif.soru}}</h4>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <h3>Cevap:</h3>
+                  <h4>{{atif.cevap}}</h4>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+        
+                    
+            </nb-accordion>
+          </div>
+        </div>
+        <button type="button" (click)="showUserAtifCevap=false; showKategori=true;" style="float:rigth" class="mt-3" nbButton >Geri</button> 
+  </div>
+</nb-card-body>
+</div>

@@ -1,0 +1,76 @@
+<nb-card status="success" *ngIf="isUser">
+  <nb-card-header style="color:black; text-transform:uppercase;">{{oturum?.oturumAdi}}</nb-card-header>
+  <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+    <div class="row">
+      <div *ngFor="let seviye of seviyeler" class="col-md-3">
+        <nb-card status="warning" card-border-color="#000000" style="border:1px #00000038 solid !important">
+          <nb-card-header style="color:black; text-transform:uppercase;">{{seviye?.seviyeNumarasi}}</nb-card-header>
+          <nb-card-body style="text-align: center">
+            <p>{{seviye.kategoriAciklama}}</p>
+            <ng-template #dialog let-data let-ref="dialogRef">
+              <nb-card size="large">
+                <nb-card-header style="text-transform: uppercase;">{{seviyeAdi}}</nb-card-header>
+                <nb-card-body style="text-align:center">
+                  <video width="700px" height="400px" style="margin: auto" controls>
+                    <source [src]="kategoriUrl">
+                    Your browser does not support the video tag.
+                  </video>
+                </nb-card-body>
+                <nb-card-footer>
+                  <div>
+                    <button nbButton (click)="start(seviye,ref)">BAŞLA</button>
+                    <button style="float:right" nbButton (click)="ref.close()">Kapat</button>
+                  </div>
+                </nb-card-footer>
+              </nb-card>
+            </ng-template>
+          </nb-card-body>
+
+          <nb-card-footer>
+            <button (click)="open(dialog,seviye)" type="button" class="btn btn-success">Seviyeyi
+              Göster</button>
+          </nb-card-footer>
+        </nb-card>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<div *ngIf="isAdmin" class="col-md-12">
+  <nb-card status="success" *ngFor="let oturum of oturumlar">
+    <nb-card-header style="color:black; text-transform:uppercase;">{{oturum?.oturumAdi}}</nb-card-header>
+    <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+      <div class="row">
+        <div *ngFor="let seviye of oturum.seviyeler" class="col-md-3">
+          <nb-card status="warning" card-border-color="#000000" style="border:1px #00000038 solid !important">
+            <nb-card-header style="color:black; text-transform:uppercase;">{{seviye?.seviyeNumarasi}}</nb-card-header>
+            <nb-card-body style="text-align: center">
+              <p>{{seviye.kategoriAciklama}}</p>
+              <ng-template #dialog let-data let-ref="dialogRef">
+                <nb-card size="large">
+                  <nb-card-header style="text-transform: uppercase;">{{seviyeAdi}}</nb-card-header>
+                  <nb-card-body style="text-align:center">
+                    <video width="700px" height="400px" style="margin: auto" controls>
+                      <source [src]="kategoriUrl">
+                      Your browser does not support the video tag.
+                    </video>
+                  </nb-card-body>
+                  <nb-card-footer>
+                    <div>
+                      <button nbButton (click)="start(seviye,ref)">BAŞLA</button>
+                      <button style="float:right" nbButton (click)="ref.close()">Kapat</button>
+                    </div>
+                  </nb-card-footer>
+                </nb-card>
+              </ng-template>
+            </nb-card-body>
+            <nb-card-footer>
+              <button (click)="open(dialog,seviye)" type="button" class="btn btn-success">Seviyeyi
+                Göster</button>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>

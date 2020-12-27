@@ -1,0 +1,12 @@
+<div [nbSpinner]="spinnerStatus" >
+   
+  <button [ngStyle]="{'visibility':isVideoVisible}" style="color:red" (click) ="oynat()">Göster</button><!--buraya video oynatma ikonu koyabilirsin-->
+  
+  
+  
+  <input #file type="file"   (change)="upload(file.files)" />
+  <br/>
+  
+  </div>
+  
+  

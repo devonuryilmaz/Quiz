@@ -1,0 +1,62 @@
+<div class="steppers-container row">
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper>
+          <nb-step *ngFor="let soru of sorular; let i = index" label="Soru">
+            <form class="step-container">
+              <div class="col-md-6 card-center">
+                <nb-card>
+                  <nb-card-header>
+                    Soru: {{soru.aciklama}}
+                  </nb-card-header>
+                </nb-card>
+              </div>
+              <div class="col-md-6 card-center" *ngIf="soru.type">
+
+                <nb-card>
+
+                  <nb-card-header>
+                    Görüntü
+                  </nb-card-header>
+
+
+                  <video *ngIf="soru.type == 'v'" #videoPlayer width="100%" controls>
+                    <source [src]="soru.url">
+                    Tarayıcınız bu videoyu desteklemiyor.
+                  </video>
+                  <div class="photoEdit" *ngIf="soru.type == 'f'">
+                    <img class="goruntuCard" [src]="soru.url">
+                  </div>
+                  <nb-card-body>
+
+                  </nb-card-body>
+                </nb-card>
+
+              </div>
+
+
+
+              <div class="input-group">
+                <input #i type="text" placeholder="Cevabınızı Yazınız" class="form-control ">
+              </div>
+              <div class="wrapper">
+                <button class="button" nbButton (click)="soruCevapla(soru,i.value,stepper)">next</button>
+              </div>
+
+            </form>
+          </nb-step>
+
+
+          <nb-step [hidden]="true" label="Third step">
+            <div class="step-container">
+              <h3>Tebrikler!</h3>
+              <button class="button" nbButton (click)="complete()">Egzersizi Tamamla</button>
+
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

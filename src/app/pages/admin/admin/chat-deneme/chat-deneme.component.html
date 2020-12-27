@@ -1,0 +1,93 @@
+
+
+<style>
+.iconGlobe{
+background: url(http://iconza.com/download/47/16x16/2a15d9/globe.png) no-repeat;
+width: 16px;
+height: 16px;
+border: none;
+display:inline-block;
+position:relative;
+    text-decoration:none;
+}
+
+.notification-count {
+    position:absolute;
+    top:-40px;
+    right:-15px;
+    background-color:#FF0000;
+    color:#fff;
+    padding:2px;
+    font-family:tahoma, arial, 'sans-serif';
+    font-size:9px;
+    font-weight:bold;
+}
+</style>
+
+<div class="lists row">
+  <div class="col-md-12 col-lg-6 col-xxxl-6">
+    <nb-card>
+
+      <nb-card-body>
+          
+        <div class="row">
+          <div *ngIf="!chatScrenHidden" class="chat-container col-md-12 col-lg-12 col-xxxl-12">
+            <nb-chat [title]="selectedUserName" size="large" status="success">
+              <nb-chat-message *ngFor="let msg of selectedUserMessages" [message]="msg.text" [reply]="msg.reply"
+                [sender]="msg.user.name" [date]="msg.date" [avatar]="msg.user.avatar">
+              
+              </nb-chat-message>
+              
+              <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
+              </nb-chat-form>
+            </nb-chat>
+          </div>
+
+        </div>
+      </nb-card-body>
+
+    </nb-card>
+  </div>
+
+
+  <div class="col-md-12 col-lg-6">
+    <nb-card size="small">
+      <nb-tabset>
+        
+        <nb-tab tabTitle="Gelen Kutusu">
+          <nb-card class="list-card" size="large">
+
+            <nb-list>
+              <nb-list-item *ngFor="let user of users; let idx = index">
+                <nb-user [name]="user.adSoyad" [title]="user.isAdmin ? 'Admin' : 'Kullanıcı'"
+                  
+                  (click)="userMessage(user.kullaniciID,idx,1)">
+                
+                </nb-user>
+                <a *ngIf="usersMessageCount[idx] > 0" class="iconGlobe"><span class="notification-count">{{usersMessageCount[idx]}}</span></a>
+                <i class="alert-triangle-outline" ></i>
+              </nb-list-item>
+
+            </nb-list>
+          </nb-card>
+        </nb-tab>
+        <nb-tab tabTitle="Mesaj At">
+            <nb-card class="list-card" size="large">
+
+                <nb-list>
+                  <nb-list-item *ngFor="let user of mesajAtilmayanKullanicilar">
+                    <nb-user [name]="user.adSoyad" [title]="user.isAdmin ? 'Admin' : 'Kullanıcı'"
+                      (click)="userMessage(user.kullaniciID)">
+                    </nb-user>
+                  </nb-list-item>
+                </nb-list>
+              </nb-card>
+          </nb-tab>
+
+      </nb-tabset>
+    </nb-card>
+  </div>
+
+
+
+</div>

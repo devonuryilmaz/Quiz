@@ -1,0 +1,15 @@
+<div class="row mb-3">
+  <button nbButton hero status="warning" style="width:100%;" (click)="turnToKategori()">KATEGORİLERE DÖN</button>
+</div>
+<div class="row">
+    <div class="col-md-3"  *ngFor="let seviye of seviyeler">
+        <div class="card text-center" style="background-color:whitesmoke; margin-bottom: 1rem">
+            <div class="card-header" style="color:black; text-transform:uppercase;">
+              {{seviye.seviyeNumarasi}}
+            </div>
+            <div class="card-body">
+                <button (click)="start(seviye)" type="button" class="btn btn-success">BAŞLA</button>
+              </div>
+          </div>
+    </div>
+  </div>

@@ -1,0 +1,20 @@
+<style>
+
+</style>
+
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Kullanicilar
+      </nb-card-header>
+    
+      <nb-card-body [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerMessage="Yükleniyor...">
+        <ng2-smart-table class="bos" [settings]="settings" [source]="source" (createConfirm)="onCreateConfirm($event)"  (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+    
+</div>
+
+</div>

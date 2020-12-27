@@ -1,0 +1,34 @@
+<nb-card size="large">
+  <nb-card-body>
+    <nb-auth-block>
+      <h1 id="title" class="title">Giris Yap</h1>
+      <p class="sub-title">Merhaba ! Kullanıcı adı ve şifreniz ile giriş yapabilirsiniz. </p>
+      <div style="text-align: center">
+      <img src="../../../../assets/images/sitegiris.png" alt="Sosyal Biliş" width="250px">
+    </div>
+      <form [formGroup]="loginForm" (ngSubmit)="loginAction()" class="ng-untouched ng-pristine ng-valid" aria-labelledby="title" >
+          <nb-alert status="danger" *ngIf="loggedIn==false && submitted">Kullanıcı Adı veya Şifre Hatalı. Tekrar Deneyin!
+          </nb-alert>  
+        <label class="label" for="input-username">Kullanıcı Adı:</label>
+          <input fullwidth="" autofocus="true" id="input-username" name="username" formControlName="userNameControl" nbinput=""
+          placeholder='Kullanıcı Adı' class="input-full-width input-md input-rectangle ng-untouched ng-pristine ng-valid"
+          [ngClass]="{'form-control-danger': submitted && validate.userNameControl.invalid}">
+          <div class="mt-2" *ngIf="validate.userNameControl.errors && submitted && !validate.invalid">
+          <nb-alert status="danger" *ngIf="validate.userNameControl.invalid">Kullanıcı Adı Boş Bırakılamaz
+          </nb-alert>
+          </div>
+          <div class="form-control-group mt-2">
+          <label class="label" for="input-password">Şifre:</label>
+          <input fullwidth="" formControlName="passwordControl" id="input-password" name="password" nbinput=""
+          placeholder='Şifre' type="password" class="input-full-width input-md input-rectangle ng-untouched ng-pristine ng-valid"
+          [ngClass]="{'form-control-danger': submitted && validate.passwordControl.invalid}">
+          <div class="mt-2" *ngIf="validate.passwordControl.errors && submitted && !validate.invalid">
+          <nb-alert status="danger" *ngIf="validate.passwordControl.invalid">Şifre Boş Bırakılamaz!
+          </nb-alert>
+          </div>
+          </div>
+          <button fullWidth nbButton status="success" type="submit" aria-disabled="false" tabindex="0">Giriş Yap</button>
+          </form>
+    </nb-auth-block>
+  </nb-card-body>
+</nb-card>

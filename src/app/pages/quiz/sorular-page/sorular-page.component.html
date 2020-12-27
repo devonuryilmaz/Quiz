@@ -1,0 +1,547 @@
+<style>
+  .bos {}
+
+  .bos>>>nb-card {
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .none {
+    display: none;
+  }
+</style>
+
+
+<div class="steppers-container row">
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+      <nb-card-body>
+        <nb-card-body>
+          <label for="exampleInputEmail1">İlerleme Durumu</label>
+          <nb-progress-bar [value]="status" [displayValue]="true" status="success"></nb-progress-bar>
+        </nb-card-body>
+        <nb-stepper #stepper>
+          <div *ngIf="tema==1">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <nb-reveal-card #revealCard>
+                  <nb-card-front>
+                    <nb-card accent="success" size="xsmall">
+                      <nb-card-body style="background-color:whitesmoke">
+                        <h3 style="text-align:center; color: black">
+                          {{soru.soruIcerik}}
+                        </h3>
+                      </nb-card-body>
+                      <!--<button nbButton style="border-radius:0% !important; color: black; font-size: 1.20rem;"
+                        status="success" (click)="soruGoster(revealCard)">Soruyu Göster</button>-->
+                    </nb-card>
+                  </nb-card-front>
+                  <!--<nb-card-back>
+                    <nb-card accent="primary" size="xsmall">
+                      <nb-card-body style="background-color:whitesmoke;">
+                        <h1 style="text-align:center;text-transform: uppercase; color: black">
+                          {{soru.soruCumlesi}}
+                        </h1>
+                      </nb-card-body>
+                      <button nbButton status="success"
+                        style="border-radius:0% !important ;color: black; font-size: 1.20rem;"
+                        (click)="soruGoster(revealCard)">METİNİ GÖSTER</button>
+                    </nb-card>
+                  </nb-card-back>-->
+                </nb-reveal-card>
+                <br>
+                <div class="card-deck">
+                  <nb-flip-card
+                    [ngClass]="{'col-md-4 col-sm-4':secenekler.length<=3,'col-md-3 col-sm-3':secenekler.length==4 ,'col-md-2 col-sm-2':secenekler.length>4 }"
+                    class="bos card col-md-4" style="text-align:center; border-radius: 5%;" *ngFor="let s of secenekler"
+                    [ngStyle]="sayiStyle" size="small" #flipCard>
+                    <nb-card-front>
+                      <nb-card size="small" style="align-items:center;">
+                        <div style="margin:auto">
+                          <h4 class="mt-3" style="color:black; ">{{s.icerik}}</h4>
+                          <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                            (click)="soruKontrol(stepper,s.isTrue,i,flipCard)">Seç</button>
+                        </div>
+                      </nb-card>
+                    </nb-card-front>
+                    <nb-card-back>
+                      <nb-card style="align-items:center;" size="small">
+                        <div *ngIf="s.isTrue==true; else yanlis" style="margin: auto;">
+                          <h5 style=" color:black; ">{{s.icerik}}</h5>
+                          <img height="100px" src="../../../../assets/images/tick.png">
+                          <div *ngIf='i != length-1; else son'>
+                            <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                              (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                          </div>
+                          <ng-template #son>
+                            <div style="margin: auto;">
+                              <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                                (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                            </div>
+                          </ng-template>
+                        </div>
+                        <ng-template #yanlis>
+                          <div style="margin: auto;">
+                            <h5 style="color:black; ">{{s.icerik}}</h5>
+                            <img height="100px"
+                              src="http://icons.iconarchive.com/icons/hopstarter/sleek-xp-basic/256/Close-icon.png">
+                            <div *ngIf="i != length-1; else son">
+                              <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                                (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                            </div>
+                            <ng-template #son>
+                              <div style="margin: auto;">
+                                <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                                  (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                              </div>
+                            </ng-template>
+                          </div>
+                        </ng-template>
+                      </nb-card>
+                    </nb-card-back>
+                  </nb-flip-card>
+                </div>
+              </form>
+            </nb-step>
+
+          </div>
+          <div *ngIf="tema==3">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <div class="row justify-content-between" *ngIf="secenekUzunluk>0;">
+                  <div class="col-4">
+                    <button #buton1 isTrue='secenekler[0]["isTrue"]'
+                      (click)='soruKontrol(stepper,secenekler[0]["isTrue"],i,null,buton1,null)' adi="sol" nbButton
+                      size="large" style="float:inline-start;border-radius: 50%;margin-top: 50%;font-size: xx-large"
+                      [ngStyle]="butonStyle"
+                      [style.background-color]='submitted? butonYak(secenekler[0]["isTrue"]) : "#7659ff"'>
+                      &lt; <br> {{secenekler[0]["icerik"]}}
+                    </button>
+                  </div>
+                  <div class="col-4" [ngClass]="{'container':submitted}">
+                    <div class="photoEdit" style="text-align:center">
+                      <h1
+                        style="font-size:3rem;position: absolute;color: red;text-transform: uppercase;margin-top: 50%;width: 90%; font-weight: 900">
+                        {{soru.soruIcerik}}</h1>
+                      <img *ngIf="emotionalFaceResim==true" class="image" style="margin:auto;width: 100%;"
+                        src='{{soru.url}}'>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <button #buton2 adi='sag' isTrue='secenekler[1]["isTrue"]'
+                      (click)='soruKontrol(stepper,secenekler[1]["isTrue"],i,null,buton2,null)' nbButton
+                      [ngStyle]="butonStyle" size="large"
+                      style="float:right;border-radius: 50%;margin-top: 50%;font-size: xx-large"
+                      [style.background-color]='submitted? butonYak(secenekler[1]["isTrue"]): "#7659ff"'>&gt; <br>
+                      {{secenekler[1]["icerik"]}}</button>
+                  </div>
+                  <div *ngIf="i != length-1 && submitted; " class="col-md-12 mt-5 row">
+                    <button nbButton hero status="success" style="font-size:larger; color:black; margin: auto"
+                      (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                  </div>
+                  <div *ngIf="i == length-1 && submitted" class="col-md-12 mt-5 row">
+                    <button nbButton hero status="success" style="font-size:larger; color:black;margin: auto"
+                      (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                  </div>
+                </div>
+              </form>
+            </nb-step>
+
+          </div>
+          <div *ngIf="tema==2">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <div class="row" *ngIf="secenekUzunluk>0;">
+                  <div *ngIf="(!ilkFotoGosterildi && !firstShowing && !secondShowing && !ucuncuGosterim)"
+                    (click)="ilkFotografiGoster()" style=" text-align: center; margin: auto;">
+                    <button nbButton hero status="danger">BAŞLA</button>
+                  </div>
+                  <div *ngIf="(firstShowing || submitted ) && !dogruCevap && !ucuncuGosterim "
+                    style="text-align:center; margin: auto">
+                    <img style="margin: auto" src='{{soru.url}}'>
+                  </div>
+                  <div *ngIf="secondShowing" class="row" style="text-align:center; margin: auto">
+                    <div class="col-12 " style="display: contents !important"
+                      *ngIf="secenekler.length>=4; else secondTemplate">
+                      <div class="col-md-3 mb-2" [ngClass]="{'container':submitted}"
+                        style="margin: auto;text-align:center;" *ngFor="let sc of secenekler">
+                        <div class="photoEdit" #target
+                          [ngClass]="{'hidden': dogruCevap,'none':!dogruCevap && submitted}">
+                          <input type="image" (click)='soruKontrol(stepper,sc.isTrue,i,null,null,target)' class="image"
+                            src='{{sc.url}}'>
+                          <div class="middle">
+                            <div *ngIf="sc.isTrue && submitted"><i class="ion-checkmark dogru"
+                                (click)='soruKontrol(stepper,sc.isTrue,i,null,null)'></i></div>
+                            <div *ngIf="!sc.isTrue && submitted"><i class="ion-close-round yanlis"
+                                (click)='soruKontrol(stepper,sc.isTrue,i,null,null)'></i></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <ng-template #secondTemplate>
+                      <div class="col-12" style="display: contents !important">
+                        <div class="col-md-4 mb-2" [ngClass]="{'container':submitted}"
+                          style="margin: auto;text-align:center" *ngFor="let sc of secenekler">
+                          <div class="photoEdit" #target
+                            [ngClass]="{'hidden': dogruCevap,'none':!dogruCevap && submitted}">
+                            <input type="image" (click)='soruKontrol(stepper,sc.isTrue,i,null,null,target)'
+                              class="image" [src]='sc.url'>
+                            <div class="middle">
+                              <div *ngIf="sc.isTrue && submitted"><i class="ion-checkmark dogru"
+                                  (click)='soruKontrol(stepper,sc.isTrue,i,null,null)'></i></div>
+                              <div *ngIf="!sc.isTrue && submitted"><i class="ion-close-round yanlis"
+                                  (click)='soruKontrol(stepper,sc.isTrue,i,null,null)'></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <div *ngIf="ucuncuGosterim && !dogruCevap" class="row" style="text-align:center; margin: auto">
+                      <div class="col-12" style="display: contents !important">
+                        <div class="photoEdit mb-2">
+                          <img class="image" style="width:200px" [src]="soru.url">
+                        </div>
+                        <div class="photoEdit mb-2">
+                          <img class="image" style="width:200px" [src]="cevapSrc">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="i != length-1 && submitted && secondShowing; " style="text-align:center"
+                    class="col-md-12 row">
+                    <button nbButton hero status="success" style="font-size:larger; color:black; margin: auto"
+                      (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                  </div>
+                  <div *ngIf="i == length-1 && submitted && secondShowing" style="text-align:center"
+                    class="col-md-12 row">
+                    <button nbButton hero status="success" style="font-size:larger; color:black;margin: auto"
+                      (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                  </div>
+                </div>
+              </form>
+            </nb-step>
+
+          </div>
+          <div *ngIf="tema==4">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <div class="row">
+                  <div *ngIf="sorufotogosterim" class="col-md-12" style="text-align:center">
+                    <div *ngFor="let image of soruPhotos;">
+                      <div *ngIf="image['visible'] && !fotoMu">
+                        <video width="25%" style="margin: auto" muted autoplay (ended)="videoEnd()">
+                          <source [src]="image.url">
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <div *ngIf="image['visible'] && fotoMu">
+                        <img width="25%" style="margin: auto" src="{{image.url}}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="soruSecenekGosterim" class="card-deck">
+                    <div class="col-12" style="display: contents !important">
+                      <div
+                        [ngClass]="{'col-md-4 col-sm-4':soruPhotos.length<=3,'col-md-3 col-sm-3':soruPhotos.length==4 ,'col-md-2 col-sm-2':soruPhotos.length>6 }"
+                        class="bos card" style="text-align:center; border-radius: 5%;margin: auto;text-align:center;"
+                        *ngFor="let s of soruPhotos" [ngStyle]="sayiStyle" #item>
+                        <nb-flip-card #flipCard>
+                          <nb-card-front>
+                            <nb-card size="xsmall">
+                              <div style="margin-top:3rem">
+                                <h4 class="mt-3" style="color:black; text-transform: uppercase;">{{s.secenekAciklama}}
+                                </h4>
+                              </div>
+                              <div class="card-body">
+                                <button nbButton hero fullWidth status="success"
+                                  style="font-size:larger; color:black;width: 60%;"
+                                  (click)="EmotionReplayKontrol(stepper,i,item,s.secenekAciklama,s.sira,flipCard,cevap)">Seç</button>
+                              </div>
+                            </nb-card>
+                          </nb-card-front>
+                          <nb-card-back>
+                            <nb-card style="align-items:center;" size="xsmall">
+                              <div>
+                                <h3 class="mt-2" style=" color:black;  text-transform: uppercase;">{{s.icerik}}</h3>
+                                <img #cevap width="50%" src="../../../../assets/images/tick.png">
+                              </div>
+                            </nb-card>
+                          </nb-card-back>
+                        </nb-flip-card>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </nb-step>
+
+          </div>
+          <div *ngIf="tema==5 ">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <div *ngIf="faceReplayIlkSoru" class="row" style="text-align: center; margin: auto;">
+                  <button nbButton status="danger" style="margin: auto;"
+                    (click)="faceReplayIlkSoruGosterim()">Başla</button>
+                </div>
+                <div *ngIf="faceReplayGoster" class="col-md-12" style="text-align:center">
+                  <div *ngFor="let image of soruPhotos;">
+                    <a *ngIf="image['visible']"><img src='{{image.url}}'></a>
+                  </div>
+                </div>
+                <div *ngIf="faceReplayDagitim;">
+                  <div class="row" style="text-align:center; margin: auto">
+                    <div class="col-md-3 mb-2" *ngFor="let num of faceReplayNumbers">
+                      <div *ngFor="let item of soruPhotos">
+                        <input *ngIf="item.dagit==num" type="image"
+                          (click)="FaceReplaySoruKontrol(stepper,i,item.sira,soru)" width="75%" [src]='item.url' #soru>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="frSonrakiSoru" class="row" style="text-align: center; margin: auto;">
+                  <button nbButton status="warning" style="margin: auto;"
+                    (click)="faceReplaySonrakiSoru(stepper,i)">Sonraki Soru</button>
+                </div>
+              </form>
+            </nb-step>
+          </div>
+          <div *ngIf="tema==6">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <nb-reveal-card *ngIf="soru.soruTipi==2" #revealCard>
+                  <nb-card-front>
+                    <nb-card accent="success" size="xsmall">
+                      <nb-card-body style="background-color:whitesmoke">
+                        <h3 style="text-align:center; color: black">
+                          {{soru.soruIcerik}}
+                        </h3>
+                      </nb-card-body>
+                      <!--
+                      <button nbButton style="border-radius:0% !important; color: black; font-size: 1.20rem;"
+                        status="success" (click)="soruGoster(revealCard)">Soruyu Göster</button>-->
+                    </nb-card>
+                  </nb-card-front>
+                  <!-- <nb-card-back>
+                    <nb-card accent="primary" size="xsmall">
+                      <nb-card-body style="background-color:whitesmoke;">
+                        <h1 style="text-align:center;text-transform: uppercase; color: black">
+                          {{soru.soruCumlesi}}
+                        </h1>
+                      </nb-card-body>
+                      <button nbButton status="success"
+                        style="border-radius:0% !important ;color: black; font-size: 1.20rem;"
+                        (click)="soruGoster(revealCard)">METİNİ GÖSTER</button>
+                    </nb-card>
+                  </nb-card-back>-->
+                </nb-reveal-card>
+                <div *ngIf="soruSuresi>0 ; else soruFoto">
+                  <div *ngIf="soru.soruTipi==1 && firstShowing" style="text-align:center">
+                    <img src="{{soru.url}}" width="175px" height="175px">
+                  </div>
+                </div>
+                <ng-template #soruFoto>
+                  <div *ngIf="soru.soruTipi==1" style="text-align:center">
+                    <img src="{{soru.url}}" width="175px" height="175px">
+                  </div>
+                </ng-template>
+                <div *ngIf="soru.soruTipi==3" style="text-align:center">
+                  <video width="25%" style="margin: auto" id={{i}} (ended)="customVideo(vide)" muted autoplay #vide>
+                    <source [src]="soru.url">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <br>
+                <div class="card-deck" *ngIf="secondShowing">
+                  <nb-flip-card
+                    [ngClass]="{'col-md-4 col-sm-4':secenekler.length <=3,'col-md-3 col-sm-3':secenekler.length==4 ,'col-md-2 col-sm-2':secenekler.length>4 }"
+                    class="bos card col-md-4" style="text-align:center; border-radius: 5%;" *ngFor="let s of secenekler"
+                    [ngStyle]="sayiStyle" #flipCard>
+                    <nb-card-front>
+                      <nb-card>
+                        <div style="margin-top:3rem" *ngIf="s.url ==null || s.url==''">
+                          <h4 class="mt-3" style="color:black;">{{s.icerik}}</h4>
+                        </div>
+                        <div style="margin-top:3rem" *ngIf="s.url !=null && s.url!=''">
+                          <img src="{{s.url}}" height="170px" width="170px">
+                        </div>
+                        <div class="card-body">
+                          <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                            (click)="soruKontrol(stepper,s.isTrue,i,flipCard)">Seç</button>
+                        </div>
+                      </nb-card>
+                    </nb-card-front>
+                    <nb-card-back>
+                      <nb-card style="align-items:center;">
+                        <div *ngIf="s.isTrue==true; else yanlis" style="margin: auto;">
+                          <h3 style=" color:black; ">{{s.icerik}}</h3>
+                          <img width="125px" height="125px" src="../../../../assets/images/tick.png">
+                          <div *ngIf='i != length-1; else son'>
+                            <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                              (click)="sonrakiSoru(stepper,i, vide)">Sonraki Soru</button>
+                          </div>
+                          <ng-template #son>
+                            <div style="margin: auto;">
+                              <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                                (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                            </div>
+                          </ng-template>
+                        </div>
+                        <ng-template #yanlis>
+                          <div style="margin: auto;">
+                            <h3 style="color:black; ">{{s.icerik}}</h3>
+                            <img width="125px" height="125px" src="../../../../assets/images/false.png">
+                            <div *ngIf="i != length-1; else son">
+                              <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                                (click)="sonrakiSoru(stepper,i, vide)">Sonraki Soru</button>
+                            </div>
+                            <ng-template #son>
+                              <div>
+                                <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                                  (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                              </div>
+                            </ng-template>
+                          </div>
+                        </ng-template>
+                      </nb-card>
+                    </nb-card-back>
+                  </nb-flip-card>
+                </div>
+              </form>
+            </nb-step>
+          </div>
+          <div *ngIf="tema==7">
+            <nb-step *ngFor="let soru of sorular; let i = index" label="{{i + 1}}.Soru">
+              <form class="step-container">
+                <div *ngIf="(!ilkFotoGosterildi && !firstShowing && !secondShowing && !ucuncuGosterim)"
+                  (click)="ilkFotografiGoster()" style=" text-align: center; margin: auto;">
+                  <button nbButton hero status="danger">BAŞLA</button>
+                </div>
+                <div *ngIf="firstShowing" style="text-align:center; margin: auto">
+                  <img src="{{soru.url}}" width="175px" height="175px">
+                </div>
+                <div class="card-deck" *ngIf="secondShowing" #target
+                  [ngClass]="{'hidden': dogruCevap,'none':!dogruCevap && submitted}">
+                  <nb-flip-card
+                    [ngClass]="{'col-md-4 col-sm-4':secenekler.length <=3,'col-md-3 col-sm-3':secenekler.length==4 ,'col-md-2 col-sm-2':secenekler.length>4 }"
+                    class="bos card col-md-4" style="text-align:center; border-radius: 5%;" *ngFor="let s of secenekler"
+                    [ngStyle]="sayiStyle" #flipCard>
+                    <nb-card-front>
+                      <nb-card size="xsmall">
+                        <div style="margin-top:3rem" *ngIf="s.url ==null || s.url==''">
+                          <h4 class="mt-3" style="color:rgb(109, 100, 100); text-transform: uppercase;">{{s.icerik}}
+                          </h4>
+                        </div>
+                        <div style="margin-top:3rem" *ngIf="s.url !=null && s.url!=''">
+                          <img src="{{s.url}}" width="100px" height="100px">
+                        </div>
+                        <div class="card-body">
+                          <button nbButton hero fullWidth status="success" style="font-size:larger; color:black;"
+                            (click)="soruKontrol(stepper,s.isTrue,i,flipCard,null,target)">Seç</button>
+                        </div>
+                      </nb-card>
+                    </nb-card-front>
+                    <nb-card-back>
+                      <nb-card style="align-items:center;" size="xsmall">
+                        <div *ngIf="s.isTrue==true; else yanlis" class="card-body">
+                          <h4 style=" color:black;  text-transform: uppercase;">{{s.icerik}}</h4>
+                          <img style="margin: auto;" width="100px" height="100px"
+                            src="../../../../assets/images/tick.png">
+                          <div *ngIf="i != length-1 && submitted && secondShowing; "
+                            style="text-align:center;margin: auto;" class="col-md-12 row">
+                            <button nbButton fullWidth hero status="success"
+                              style="font-size:smaller; color:black; margin: auto"
+                              (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                          </div>
+                          <div *ngIf="i == length-1 && submitted && secondShowing"
+                            style="text-align:center;margin: auto;" class="col-md-12 row">
+                            <button nbButton hero fullWidth status="success"
+                              style="font-size:smaller; color:black;margin: auto"
+                              (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                          </div>
+                        </div>
+                        <ng-template #yanlis>
+                          <div class="card-body">
+                            <h4 style="color:black;  text-transform: uppercase;">{{ s.icerik }}</h4>
+                            <img width="100px" height="100px" src="../../../../assets/images/false.png">
+                            <div *ngIf="i != length-1 && submitted && secondShowing; "
+                              style="text-align:center;margin: auto;" class="col-md-12 row">
+                              <button nbButton hero fullWidth status="success"
+                                style="font-size:smaller; color:black; margin: auto"
+                                (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                            </div>
+                            <div *ngIf="i == length-1 && submitted && secondShowing"
+                              style="text-align:center;margin: auto;" class="col-md-12 row">
+                              <button nbButton hero fullWidth status="success"
+                                style="font-size:smaller; color:black;margin: auto"
+                                (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </nb-card>
+                    </nb-card-back>
+                  </nb-flip-card>
+                </div>
+                <div *ngIf="ucuncuGosterim && !dogruCevap"
+                  style="text-align: center;display: flex;flex-direction: row;justify-content: center;">
+                  <div class="mb-2 col-4">
+                    <img class="image" style="width:200px;float: right" src="{{soru.url}}">
+                  </div>
+                  <div class="mb-2 col-4">
+                    <nb-card accent="success">
+                      <div>
+                        <h3 style="color:black;  text-transform: uppercase;">{{ cevapSrc }}</h3>
+                        <img width="125px" src="../../../../assets/images/false.png">
+                        <div *ngIf="i != length-1; else son">
+                          <button nbButton hero status="success" style="font-size:larger; color:black;"
+                            (click)="sonrakiSoru(stepper,i)">Sonraki Soru</button>
+                        </div>
+                        <ng-template #son>
+                          <div>
+                            <button nbButton hero status="success" style="font-size:larger; color:black;"
+                              (click)="sonrakiSoru(stepper,i)">Egzersizi Bitir</button>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </nb-card>
+                  </div>
+                </div>
+              </form>
+            </nb-step>
+          </div>
+
+          <nb-step [hidden]="true" label="Third step">
+            <div *ngIf="uzunluk>0 && !soruYok" class="step-container">
+              <h3 style="text-align: center; text-transform: uppercase;">Egzersiz Bitti </h3>
+              <button nbButton (click)="turnToSeviye()">Egzersizi Bitir</button>
+            </div>
+            <div *ngIf="soruYok;">
+              <h3 style="text-align: center;text-transform: uppercase;">Soru Yok! </h3>
+              <h3 style="text-align: center;text-transform: uppercase;">Seviyelere Dönün </h3>
+              <button nbButton hero status="warning" (click)="turnToSeviye()">Seviyelere Dön</button>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<!--  <div class="col-md-6" style="margin:auto">
+                    <div id="myCarousel"  *ngIf="soruPhotos" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active" *ngFor="let image of soruPhotos;let ind =index" >
+                              <video style="width:50%;margin:auto" muted loop autoplay>
+                                  <source [src]="image.url" type="video/mp4" />
+                                </video>
+                          </div>
+                        </div>
+                      </div>
+                    </div>-->

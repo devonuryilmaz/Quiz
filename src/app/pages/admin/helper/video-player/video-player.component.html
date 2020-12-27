@@ -1,0 +1,6 @@
+<video *ngIf="videoVisible" #videoPlayer style="margin:auto;width: 80%;"  controls>
+    <source [src]="videoPlayerSource">
+    Your browser does not support the video tag.
+ </video>
+ <!-- todo videonun height alanı sabit olmalı-->
+ <img *ngIf = "photoVisible" [src]="photoSource" width="80%" style="margin:auto"  alt="Girl in a jacket">

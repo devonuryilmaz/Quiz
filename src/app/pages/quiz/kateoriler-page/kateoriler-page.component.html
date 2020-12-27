@@ -1,0 +1,216 @@
+<div class="row">
+  <div class="col-md-4" *ngFor="let kategori of kategoriler">
+    <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+      <div class="card-header" style="color:black; text-transform:uppercase; ">
+        <h5 style="color:black;">
+          {{kategori.kategoriAdi}}
+        </h5>
+      </div>
+      <div class="card-body">
+        <p style="color:black">{{kategori.aciklama}}</p>
+        <!--<iframe src="http://www.youtube.com/embed/W7qWa52k-nE" height="300px;" frameborder="0" allowfullscreen></iframe>-->
+      </div>
+      <div class="card-footer">
+        <!--  <button  [routerLink]="['../seviyeler/',kategori.kategoriID]" type="button" class="btn btn-success">Seviyeleri Göster</button>
+          <button (click)="openWindow(kategori)" status="success" nbButton>Kategoriyi Göster</button>
+            <ng-template #contentTemplate>
+            <p>{{kategori.url}}</p>
+            <div class="row">
+            <video width="50%" style="margin: auto" controls>
+                <source src="{{kategori.url}}">
+                Your browser does not support the video tag.
+              </video> 
+            </div>
+          <button  [routerLink]="['../seviyeler/',kategori.kategoriID]"  type="button" class="btn btn-success">Seviyeleri Göster</button>
+        </ng-template>
+-->
+
+        <ng-template #dialog let-data let-ref="dialogRef">
+          <nb-card size="large">
+            <nb-card-header>{{kategoriAdi}}</nb-card-header>
+            <nb-card-body style="text-align:center">
+              <video width="700px" height="400px" style="margin: auto" controls>
+                <source src="{{kategori.url}}">
+                Your browser does not support the video tag.
+              </video>
+            </nb-card-body>
+            <nb-card-footer>
+              <div>
+                <button nbButton (click)="ref.close()" [routerLink]="['../seviyeler/',kategori.kategoriID]">Seviyeleri
+                  Göster</button>
+                <button style="float:right" nbButton (click)="ref.close()">Kapat</button>
+              </div>
+            </nb-card-footer>
+          </nb-card>
+        </ng-template>
+        <button nbButton (click)="open(dialog,kategori)" status="success">Kategori Önizleme</button>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-4" *ngFor="let kategori of atifKategoriler">
+    <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+      <div class="card-header" style="color:black; text-transform:uppercase; ">
+        <h5 style="color:black;">
+          Atıf
+        </h5>
+      </div>
+      <div class="card-body">
+        <p style="color:black">{{kategori.aciklama}}</p>
+        <!--<iframe src="http://www.youtube.com/embed/W7qWa52k-nE" height="300px;" frameborder="0" allowfullscreen></iframe>-->
+      </div>
+      <div class="card-footer">
+        <!--  <button  [routerLink]="['../seviyeler/',kategori.kategoriID]" type="button" class="btn btn-success">Seviyeleri Göster</button>
+          <button (click)="openWindow(kategori)" status="success" nbButton>Kategoriyi Göster</button>
+            <ng-template #contentTemplate>
+            <p>{{kategori.url}}</p>
+            <div class="row">
+            <video width="50%" style="margin: auto" controls>
+                <source src="{{kategori.url}}">
+                Your browser does not support the video tag.
+              </video> 
+            </div>
+          <button  [routerLink]="['../seviyeler/',kategori.kategoriID]"  type="button" class="btn btn-success">Seviyeleri Göster</button>
+        </ng-template>
+-->
+
+        <ng-template #dialog let-data let-ref="dialogRef">
+          <nb-card size="large">
+            <nb-card-header>Atıf</nb-card-header>
+            <nb-card-body style="text-align:center">
+              <video width="700px" height="400px" style="margin: auto" controls>
+                <source src="{{kategori.videoUrl}}">
+                Your browser does not support the video tag.
+              </video>
+            </nb-card-body>
+            <nb-card-footer>
+              <div>
+                <button nbButton (click)="ref.close()" [routerLink]="['../atif-seviyeler/',kategori.id]">Seviyeleri
+                  Göster</button>
+                <button style="float:right" nbButton (click)="ref.close()">Kapat</button>
+              </div>
+            </nb-card-footer>
+          </nb-card>
+        </ng-template>
+        <button nbButton (click)="openCustom(dialog)" status="success">Kategori Önizleme</button>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="col-md-4" *ngFor="let kategori of gazeCastKategoriler">
+    <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+      <div class="card-header" style="color:black; text-transform:uppercase; ">
+        <h5 style="color:black;">
+          Bakış Biçimlendirme
+        </h5>
+      </div>
+      <div class="card-body">
+        <p style="color:black">{{kategori.aciklama}}</p>
+        <!--<iframe src="http://www.youtube.com/embed/W7qWa52k-nE" height="300px;" frameborder="0" allowfullscreen></iframe>-->
+      </div>
+      <div class="card-footer">
+        <!--  <button  [routerLink]="['../seviyeler/',kategori.kategoriID]" type="button" class="btn btn-success">Seviyeleri Göster</button>
+          <button (click)="openWindow(kategori)" status="success" nbButton>Kategoriyi Göster</button>
+            <ng-template #contentTemplate>
+            <p>{{kategori.url}}</p>
+            <div class="row">
+            <video width="50%" style="margin: auto" controls>
+                <source src="{{kategori.url}}">
+                Your browser does not support the video tag.
+              </video> 
+            </div>
+          <button  [routerLink]="['../seviyeler/',kategori.kategoriID]"  type="button" class="btn btn-success">Seviyeleri Göster</button>
+        </ng-template>
+-->
+
+        <ng-template #dialog let-data let-ref="dialogRef">
+          <nb-card size="large">
+            <nb-card-header>Bakış Biçimlendirme</nb-card-header>
+            <nb-card-body style="text-align:center">
+              <video width="700px" height="400px" style="margin: auto" controls>
+                <source src="{{kategori.videoUrl}}">
+                Your browser does not support the video tag.
+              </video>
+            </nb-card-body>
+            <nb-card-footer>
+              <div>
+                <button nbButton (click)="ref.close()" [routerLink]="['../gazecast-seviyeler/',kategori.id]">Seviyeleri
+                  Göster</button>
+                <button style="float:right" nbButton (click)="ref.close()">Kapat</button>
+              </div>
+            </nb-card-footer>
+          </nb-card>
+        </ng-template>
+        <button nbButton (click)="openCustom(dialog)" status="success">Kategori Önizleme</button>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4" *ngFor="let kategori of facetoFaceKategoriler">
+    <div class="card text-center" style="background-color:whitesmoke;margin-bottom: 1rem">
+      <div class="card-header" style="color:black; text-transform:uppercase; ">
+        <h5 style="color:black;">
+          Gerçeklerle Yüzleşme
+        </h5>
+      </div>
+      <div class="card-body">
+        <p style="color:black">{{kategori.aciklama}}</p>
+        <!--<iframe src="http://www.youtube.com/embed/W7qWa52k-nE" height="300px;" frameborder="0" allowfullscreen></iframe>-->
+      </div>
+      <div class="card-footer">
+        <!--  <button  [routerLink]="['../seviyeler/',kategori.kategoriID]" type="button" class="btn btn-success">Seviyeleri Göster</button>
+          <button (click)="openWindow(kategori)" status="success" nbButton>Kategoriyi Göster</button>
+            <ng-template #contentTemplate>
+            <p>{{kategori.url}}</p>
+            <div class="row">
+            <video width="50%" style="margin: auto" controls>
+                <source src="{{kategori.url}}">
+                Your browser does not support the video tag.
+              </video> 
+            </div>
+          <button  [routerLink]="['../seviyeler/',kategori.kategoriID]"  type="button" class="btn btn-success">Seviyeleri Göster</button>
+        </ng-template>
+-->
+
+        <ng-template #dialog let-data let-ref="dialogRef">
+          <nb-card size="large">
+            <nb-card-header>Gerçeklerle Yüzleşme</nb-card-header>
+            <nb-card-body style="text-align:center">
+              <video width="700px" height="400px" style="margin: auto" controls>
+                <source src="{{kategori.videoUrl}}">
+                Your browser does not support the video tag.
+              </video>
+            </nb-card-body>
+            <nb-card-footer>
+              <div>
+                <button nbButton (click)="ref.close()"
+                  [routerLink]="['../facetofact-seviyeler/',kategori.id]">Seviyeleri Göster</button>
+                <button style="float:right" nbButton (click)="ref.close()">Kapat</button>
+              </div>
+            </nb-card-footer>
+          </nb-card>
+        </ng-template>
+        <button nbButton (click)="openCustom(dialog)" status="success">Kategori Önizleme</button>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>

@@ -1,0 +1,63 @@
+.photoEdit{
+    background-size:cover;
+	background-position:center;
+    background-repeat:no-repeat;
+    
+}
+
+.goruntuCard{
+    width:100%; /* or whatever width you want. */
+    height: 100%;;
+   display: inline-block;
+}
+.card-center{
+    margin:0 auto;
+}
+.wrapper {
+    text-align: center;
+}
+.button {
+    position: absolute;
+    
+}
+
+.container {
+    position: relative;
+    width: 50%;
+  }
+  
+  .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+  
+  .middle {
+
+    top: 50%;
+    left: 50%;
+   
+    text-align: center;
+  }
+  
+  .container .image {
+    opacity: 0.3;
+  }
+  
+  .container .middle {
+    opacity: 1;
+  }
+  
+  .dogru {
+   color: green;
+   font-size: 100px;
+   position: absolute;
+  }
+  .yanlis {
+    color: red;
+    font-size: 100px;
+    position: absolute;
+  }

@@ -1,0 +1,285 @@
+<div class="steppers-container row">
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper>
+          <nb-step *ngFor="let soru of sorular; let i = index" label="Soru">
+            <form class="step-container">
+              <div *ngIf="soruVisible">
+                <div class="col-md-6 card-center">
+                  <nb-card>
+                    <nb-card-header>
+                      Soru Açıklaması: {{soru.aciklama}}
+                    </nb-card-header>
+                  </nb-card>
+                </div>
+                <div class="col-md-6 card-center">
+
+                  <nb-card>
+
+
+                    <nb-card-header>
+                      Görüntü
+                    </nb-card-header>
+
+
+                    <video #videoPlayer width="100%" autoplay (ended)="videoEnd()" (complete)="test()">
+                      <source [src]="soru.videoUrl">
+                      Tarayıcınız bu videoyu desteklemiyor.
+                    </video>
+
+                    <nb-card-body>
+
+                    </nb-card-body>
+                  </nb-card>
+
+                </div>
+
+
+
+
+
+              </div>
+
+
+              <div *ngIf="!soruVisible">
+
+                <div class="col-md-6 card-center">
+
+                  <nb-card>
+
+
+                    <nb-card-header>
+
+
+
+                      Görüntü
+                    </nb-card-header>
+
+
+
+
+                    <nb-card-body>
+                      <div class="row">
+                        <div class="offset-md-4">
+
+                        </div>
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ; margin-left: 30px;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo1isTrue,soru.id)" *ngIf="soru['cevap'].photo1Url">
+                              <img class="image" [src]="soru['cevap'].photo1Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo1isTrue && soru['cevap'].photo1Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo1isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo1isTrue && soru['cevap'].photo1Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo1isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-4">
+
+                        </div>
+
+
+
+                      </div>
+
+                      <div class="row">
+                        <div class="offset-md-2">
+
+                        </div>
+
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo2isTrue,soru.id)" *ngIf="soru['cevap'].photo2Url">
+                              <img class="image" [src]="soru['cevap'].photo2Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo2isTrue && soru['cevap'].photo2Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo2isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo2isTrue && soru['cevap'].photo2Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo2isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-2">
+
+                        </div>
+
+
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo3isTrue,soru.id)" *ngIf="soru['cevap'].photo3Url">
+                              <img class="image" [src]="soru['cevap'].photo3Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo3isTrue && soru['cevap'].photo3Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo3isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo3isTrue && soru['cevap'].photo3Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo3isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-2">
+
+                        </div>
+
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo4isTrue,soru.id)" *ngIf="soru['cevap'].photo4Url">
+                              <img class="image" [src]="soru['cevap'].photo4Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo4isTrue && soru['cevap'].photo4Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo4isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo4isTrue && soru['cevap'].photo4Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo4isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-6">
+
+                        </div>
+
+
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo5isTrue,soru.id)" *ngIf="soru['cevap'].photo5Url">
+                              <img class="image" [src]="soru['cevap'].photo5Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo5isTrue && soru['cevap'].photo5Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo5isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo5isTrue && soru['cevap'].photo5Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo5isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+
+
+                      <div class="row">
+                        <div class="offset-md-2">
+
+                        </div>
+
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo6isTrue,soru.id)" *ngIf="soru['cevap'].photo6Url">
+                              <img class="image" [src]="soru['cevap'].photo6Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo6isTrue && soru['cevap'].photo6Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo6isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo6isTrue && soru['cevap'].photo6Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo6isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-2">
+
+                        </div>
+
+
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo7isTrue,soru.id)" *ngIf="soru['cevap'].photo7Url">
+                              <img class="image" [src]="soru['cevap'].photo7Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo7isTrue && soru['cevap'].photo7Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo7isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo7isTrue && soru['cevap'].photo7Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo7isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-2">
+
+                        </div>
+
+
+                      </div>
+
+                      <div class="row">
+                        <div class="offset-md-4">
+
+                        </div>
+                        <div class="col-md-3 " [ngClass]="container" style="margin-bottom:30px ; margin-left: 30px;">
+                          <div class="photoEdit">
+                            <a (click)="photoClick(soru['cevap'].photo8isTrue,soru.id)" *ngIf="soru['cevap'].photo8Url">
+                              <img class="image" [src]="soru['cevap'].photo8Url"></a>
+                            <div class="middle">
+                              <div *ngIf="soru['cevap'].photo8isTrue && soru['cevap'].photo8Url"><i
+                                  class="ion-checkmark dogru"
+                                  (click)="photoClick(soru['cevap'].photo8isTrue,soru.id)"></i></div>
+                              <div *ngIf="!soru['cevap'].photo8isTrue && soru['cevap'].photo8Url"><i
+                                  class="ion-close-round yanlis"
+                                  (click)="photoClick(soru['cevap'].photo8isTrue,soru.id)"></i></div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="offset-md-4">
+
+                        </div>
+
+
+
+                      </div>
+
+
+                    </nb-card-body>
+                  </nb-card>
+
+                </div>
+
+                <div class="wrapper" *ngIf="devamButton">
+
+
+                  <button class="button" nbButton (click)="next(stepper)">Devam</button>
+                </div>
+
+
+
+
+              </div>
+
+            </form>
+
+          </nb-step>
+
+
+          <nb-step [hidden]="true" label="Third step">
+            <div class="step-container">
+              <h3>Tebrikler!</h3>
+              <button class="button" nbButton (click)="complete()">Egzersizi Tamamla</button>
+
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

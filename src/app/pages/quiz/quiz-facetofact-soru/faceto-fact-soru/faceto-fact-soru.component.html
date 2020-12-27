@@ -1,0 +1,73 @@
+<div class="steppers-container row">
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper>
+          <nb-step *ngFor="let soru of sorular; let i = index" label="Soru">
+            <div class="wrapper">
+              <button class="button" *ngIf="!soruPhotosVisible && startBtnVisible" nbButton
+                (click)="start(soru)">Başla</button>
+            </div>
+            <div *ngIf="soruPhotosVisible">
+              <div *ngFor="let photo of selectedPhotos">
+                <form class="step-container" *ngIf="photo['visible']">
+                  <div class="col-md-6 card-center" style="float:left;">
+                    <nb-card>
+                      <nb-card-body>
+                        <div class="photoEdit">
+                          <a> <img class="goruntuCard" [src]="photo['url']"></a>
+                        </div>
+                      </nb-card-body>
+                    </nb-card>
+                    <nb-card>
+                      <nb-card-header>
+                        {{photo.aciklama}}
+                      </nb-card-header>
+                    </nb-card>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="wrapper">
+                      <button class="button" (click)="nextSoruPhoto()" nbButton>next</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div *ngIf="cevapVisible">
+              <div *ngFor="let photo of selectedPhotos">
+                <form class="step-container" *ngIf="photo['visible']">
+                  <div class="col-md-6 card-center">
+                    <nb-card>
+                      <nb-card-body>
+                        <div class="photoEdit">
+                          <a> <img class="goruntuCard" [src]="photo['url']"></a>
+                        </div>
+                      </nb-card-body>
+                    </nb-card>
+                    <div class="row">
+                      <div *ngFor="let secenek of selectedSecenekler" class="col-md-4">
+                        <nb-card>
+                          <i *ngIf="clicked && secenek['isTrue']" class="ion-checkmark dogru"></i>
+                          <i *ngIf="clicked && !secenek['isTrue']" class="ion-checkmark yanlis"></i>
+                          <nb-card-body (click)="cevapla(secenek,stepper)">
+                            {{secenek.aciklama}}
+                          </nb-card-body>
+                        </nb-card>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </nb-step>
+          <nb-step [hidden]="true" label="Third step">
+            <div class="step-container">
+              <h3>Tebrikler!</h3>
+              <button class="button" nbButton (click)="complete()">Egzersizi Tamamla</button>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

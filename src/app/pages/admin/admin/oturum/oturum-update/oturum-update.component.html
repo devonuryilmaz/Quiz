@@ -1,0 +1,38 @@
+<div class="col-sm-8 col-md-8 col-lg-8" style="margin: auto">
+  <nb-card>
+    <nb-card-header >
+        <h1 id="title" class="title">Oturumlar</h1>
+    </nb-card-header>
+    <nb-card-body >
+      <form [formGroup]="oturumForm" class="ng-untouched ng-pristine ng-valid" aria-labelledby="title" (ngSubmit)="update()">
+        <div class="form-group">
+            <label class="label" for="input-username">Oturum Adı:</label>
+            <input fullwidth="" id="input-oturumAdi" name="oturumAdi" formControlName="oturumAdi" nbinput="" [(ngModel)]="oturum.oturumAdi"
+            placeholder='Oturum Adı' class="input-full-width input-md input-rectangle ng-untouched ng-pristine ng-valid"
+            [ngClass]="{'form-control-danger': submitted && validate.oturumAdi.invalid}">
+            <div class="mt-2" *ngIf="validate?.oturumAdi.errors && submitted && !validate.invalid">
+            <nb-alert status="danger" *ngIf="validate.oturumAdi.invalid">Oturum Adı Boş Bırakılamaz
+            </nb-alert>
+            </div>
+          </div>
+          <div class="form-group">
+            <nb-checkbox status="primary"  formControlName="isAktif" [(ngModel)]="oturum.isAktif">Aktif</nb-checkbox>
+          </div>
+          <div class="form-group">
+            <h4>Seviyeler</h4>
+            <nb-checkbox (change)="goster(seviye,$event)" *ngFor="let seviye of seviyeler" id="{{seviye?.seviyeID}}"
+             value="{{seviye?.oturumAktif}}">
+              {{seviye.seviyeNumarasi}}</nb-checkbox>
+            </div>
+          <div class="form-group" style="text-align: center; display: flex">
+            <div class="col-md-6 col-sm-6 col-lg-6">
+            <button nbButton status="warning" type="submit" style="float: right">GUNCELLE</button>
+          </div>
+          <div class="col-md-6 col-sm-6 col-lg-6">
+            <button nbButton status="danger" type="button" (click)="sil()"  style="float: left">SIL</button>
+          </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
